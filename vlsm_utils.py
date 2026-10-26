@@ -1,4 +1,4 @@
-from binary_utils import decimalConversion
+from binary_utils import decimalConversion, binaryConversion
 
 def total_ipv4_hosts():
     total_hosts = []
@@ -123,6 +123,7 @@ def full_length_mask(prefijo:int):
         return mask
 
 
+# Funcion que calcula el VLSM
 def calcVlsm(bits:list[int], hosts:list[int]):
     total = sum(hosts)
     ceros_amount = 0
@@ -142,90 +143,143 @@ def calcVlsm(bits:list[int], hosts:list[int]):
         ceros_amount = 3
 
     calc_size = octeto * ceros_amount
+    
+    # Array inicial que utilizaremos para realizar todos nuestros calculos
     calc_array = [0] * calc_size
 
-    subred = {
-        "inicio": [],
-        "fin": []
-    }
 
-    if len(resultados) == 0:
-        # subred = {
-        #     "inicio": [],
-        #     "fin": []
-        # }
+
+    current_calc_array = calc_array
+    for bit in bits:
+        rango_inicial = []
+        rango_final = []
+        subred = {
+            "Inicio":rango_inicial,
+            "Fin": rango_final
+        }
+
+        first_range = current_calc_array
+        primera_division = len(first_range) / octeto
+        if primera_division == 2:
+            # Clase B y C
+            ordenamiento = first_range[::-1]
+            numero_uno = decimalConversion(ordenamiento[:8])
+            numero_dos = decimalConversion(ordenamiento[8:])
+            rango_inicial.append(numero_uno)
+            rango_inicial.append(numero_dos)
+        elif primera_division == 3:
+            # Clase A
+            ordenamiento = first_range[::-1]
+            numero_uno = decimalConversion(ordenamiento[:8])
+            numero_dos = decimalConversion(ordenamiento[8:16])
+            numero_tres = decimalConversion(ordenamiento[16:24])
+            rango_inicial.append(numero_uno)
+            rango_inicial.append(numero_dos)
+            rango_inicial.append(numero_tres)
+
+
+        # Colocamos los uno conforme a los bits usados
         contador = 0
-        while contador != bits[0]:
-            calc_array[contador] = 1
-            contador = contador +1
+        while contador != bit:
+            current_calc_array[contador] = 1
+            contador= contador + 1
 
-    # Volteamos el array calculado
-    new = calc_array[::-1]
-    
-    # Basado en el numero de ceros disponibles por calculo dividimos el array
-    # Calculo para el primer rang de direcciones
-    if ceros_amount == 2:
-        subred["inicio"] = [0] * ceros_amount
-        new_uno = new[:8]
-        new_two = new[8:]
-        # Los convertimos a decimales
-        subred["fin"].append(decimalConversion(new_uno))
-        subred["fin"].append(decimalConversion(new_two))        
+        final_range = current_calc_array[::-1]
+        segunda_division = len(final_range) / octeto
+        if segunda_division == 2:
+            numero_uno = decimalConversion(final_range[:8])
+            numero_dos = decimalConversion(final_range[8:])
+            rango_final.append(numero_uno)
+            rango_final.append(numero_dos)
+
+
+            if numero_dos < 255:
+                new_numero_uno = numero_uno
+                new_numero_dos = numero_dos + 1
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                next_array = binary_uno + binary_dos
+                current_calc_array = next_array[::-1]
+            elif numero_dos == 255:
+                new_numero_uno = numero_uno + 1
+                new_numero_dos = 0
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                next_array = binary_uno + binary_dos
+                current_calc_array = next_array[::-1] # Verificar esto
+
+
+        elif segunda_division == 3: #Aqui comienza la logica de la Clase A
+            array_uno = final_range[:8]
+            array_dos= final_range[8:16]
+            array_tres= final_range[16:24]
+            numero_uno = decimalConversion(array_uno)
+            numero_dos = decimalConversion(array_dos)
+            numero_tres = decimalConversion(array_tres)
+            rango_final.append(numero_uno)
+            rango_final.append(numero_dos)
+            rango_final.append(numero_tres)
+            # print(rango_final)
+
+            if numero_tres == 255 and numero_dos == 255:
+                new_numero_uno = numero_uno + 1
+                new_numero_dos = 0
+                new_numero_tres = 0
+                # print(new_numero_uno, new_numero_dos, new_numero_tres)
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres
+                current_calc_array = next_array[::-1]
+            elif numero_tres < 255 and numero_dos < 255:
+                new_numero_uno = numero_uno 
+                new_numero_dos = numero_dos + 1
+                new_numero_tres = numero_tres + 1
+                # print(new_numero_uno, new_numero_dos, new_numero_tres)
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres
+                current_calc_array = next_array[::-1]
+            elif numero_tres == 255 and numero_dos < 255:
+                new_numero_uno = numero_uno
+                new_numero_dos = numero_dos + 1
+                new_numero_tres = 0
+                # print(new_numero_uno, new_numero_dos, new_numero_tres)
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres
+                current_calc_array = next_array[::-1]
+            elif numero_tres < 255 and numero_dos == 255:
+                new_numero_uno = numero_uno + 1
+                new_numero_dos = 0
+                new_numero_tres = numero_tres + 1
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres
+                current_calc_array = next_array[::-1]
+
+           
         resultados.append(subred)
-    elif ceros_amount == 3:
-        subred["inicio"] = [0] * ceros_amount
-        new_uno = new[0:8]
-        new_two = new[8:16]
-        new_three = new[16:24]
-        subred["fin"].append(decimalConversion(new_uno))
-        subred["fin"].append(decimalConversion(new_two))
-        subred["fin"].append(decimalConversion(new_three))
-        resultados.append(subred)
-
-    # Eliminamos el elemento con el que calculamos el primer rango de subredes
-    bits.pop(0)
-
     
-    # Calculo para el rango restante de direcciones    
-    for resultado in resultados:
-        first_range = []
-        # Calculos de VLSM en caso de que estemos frente a una clase B y C
-        if len(resultado["fin"]) == 2:
-            last_position = len(resultado["fin"]) - 1
-
-            if resultado["fin"][last_position] == 255:
-                # Calculo del siguiente primer rango en caso que el ultimo octeto del ultimo rango sea igual a a 255
-                new_value = resultado["fin"][0] + 1
-                another_value = 0
-                first_range.append(new_value)
-                first_range.append(another_value)
-                print(first_range)
-            else: 
-                new_value = resultado["fin"][last_position] + 1
-                another_value = resultado["fin"][0]
-                first_range.append(another_value)
-                first_range.append(new_value)
-                print(first_range)
-
-                
-
-        # Calculo de rangos de ip en caso de que estemos frente a una Clase  A
-        elif len(resultado["fin"]) ==3:
-            last_position = len(resultado["fin"]) - 1
-
-            if resultado["fin"][last_position] == 255:
-                print("limite maximo")
-                # Aqui aplicaremos una logica distinta
-
-
-# Clase b
-# calcVlsm([10,10,9,9],[547, 522, 327, 445])
-
-
-# calcVlsm([7,7,6,4],[95,75,40,10])
-
-# Clase A
-# calcVlsm([16,16,17,19,20],[50000, 45000, 32050, 6750, 3250])
-
-# Clase C
-calcVlsm([7,7,6,6,3],[12,30,57,75,75])
+    return resultados

@@ -43,4 +43,6 @@ else:
     print(f"Bits a usar por cada subred: {bits_usables}")
     print(f"Mascara por cada subred:  {mascaras}")
     print(f"Mascaras completas: {full_masks}")
-    print(vlsm)
+
+    for subred in vlsm:
+        print(subred)

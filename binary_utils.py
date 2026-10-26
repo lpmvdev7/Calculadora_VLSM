@@ -25,7 +25,7 @@ def binaryConversion(decimalNumber):
 
 
     if decimalNumber in decimales:
-        print("Se encuentra no es necesario hacer la conversion")
+        # print("Se encuentra no es necesario hacer la conversion")
         for index, numero in enumerate(decimales):
             if numero == decimalNumber:
                 binary_array[index]=1
