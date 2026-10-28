@@ -1,4 +1,5 @@
 from binary_utils import decimalConversion, binaryConversion
+from data_utils import convertToIpFormat
 
 def total_ipv4_hosts():
     total_hosts = []
@@ -90,7 +91,8 @@ def full_length_mask(prefijo:int):
                 mask.append(0)
                 size += 1 
 
-            return mask
+            # return mask
+            return convertToIpFormat(mask)
 
     ## Armar mascaras dinamicas de 8, 16, 24, 32
         if objeto["operacion_resultado"] > 0:
@@ -120,7 +122,8 @@ def full_length_mask(prefijo:int):
         while size < 4:
             mask.append(0)
             size += 1 
-        return mask
+        # return mask 
+        return convertToIpFormat(mask)
 
 
 # Funcion que calcula el VLSM
@@ -300,10 +303,27 @@ def calcVlsm(bits:list[int], hosts:list[int]):
                 # next array 
                 next_array = binary_uno + binary_dos + binary_tres
                 current_calc_array = next_array[::-1]
-
-           
+   
         resultados.append(subred)
 
 
+    rangos_finales = []
 
-    return resultados
+    primerIp = ""
+    ultimaIp = ""
+
+    for resultado in resultados:
+        rango = {
+        "First": primerIp,
+        "Last": ultimaIp
+        }
+        currentFirst = resultado["Inicio"]
+        currentLast = resultado["Fin"]
+        primerIp = convertToIpFormat(currentFirst)
+        ultimaIp = convertToIpFormat(currentLast)
+
+        rango["First"] = primerIp
+        rango["Last"] = ultimaIp
+        rangos_finales.append(rango)
+
+    return rangos_finales
