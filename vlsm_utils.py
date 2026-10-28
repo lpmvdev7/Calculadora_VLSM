@@ -128,6 +128,7 @@ def calcVlsm(bits:list[int], hosts:list[int]):
     total = sum(hosts)
     ceros_amount = 0
     octeto = 8
+    ip_class_number = []
 
     # Array de objetos que guardara los rangos de red
     resultados = []
@@ -135,12 +136,17 @@ def calcVlsm(bits:list[int], hosts:list[int]):
     if total <= 254:
         # Clase C
         ceros_amount = 2
+        ip_class_number = [192,168]
+
     elif total > 254 and total <= 65534:
         # Clase B
         ceros_amount = 2
+        ip_class_number = [172,16]
+
     elif total > 65534 and total <= 16777214:
         #Clase C
         ceros_amount = 3
+        ip_class_number = [10]
 
     calc_size = octeto * ceros_amount
     
@@ -165,6 +171,10 @@ def calcVlsm(bits:list[int], hosts:list[int]):
             ordenamiento = first_range[::-1]
             numero_uno = decimalConversion(ordenamiento[:8])
             numero_dos = decimalConversion(ordenamiento[8:])
+
+            for numero in ip_class_number:
+                rango_inicial.append(numero)
+
             rango_inicial.append(numero_uno)
             rango_inicial.append(numero_dos)
         elif primera_division == 3:
@@ -173,6 +183,10 @@ def calcVlsm(bits:list[int], hosts:list[int]):
             numero_uno = decimalConversion(ordenamiento[:8])
             numero_dos = decimalConversion(ordenamiento[8:16])
             numero_tres = decimalConversion(ordenamiento[16:24])
+
+            for numero in ip_class_number:
+                rango_inicial.append(numero)
+            
             rango_inicial.append(numero_uno)
             rango_inicial.append(numero_dos)
             rango_inicial.append(numero_tres)
@@ -189,6 +203,10 @@ def calcVlsm(bits:list[int], hosts:list[int]):
         if segunda_division == 2:
             numero_uno = decimalConversion(final_range[:8])
             numero_dos = decimalConversion(final_range[8:])
+
+            for numero in ip_class_number:
+                rango_final.append(numero)
+
             rango_final.append(numero_uno)
             rango_final.append(numero_dos)
 
@@ -218,6 +236,10 @@ def calcVlsm(bits:list[int], hosts:list[int]):
             numero_uno = decimalConversion(array_uno)
             numero_dos = decimalConversion(array_dos)
             numero_tres = decimalConversion(array_tres)
+
+            for numero in ip_class_number:
+                rango_final.append(numero)
+
             rango_final.append(numero_uno)
             rango_final.append(numero_dos)
             rango_final.append(numero_tres)
@@ -281,5 +303,7 @@ def calcVlsm(bits:list[int], hosts:list[int]):
 
            
         resultados.append(subred)
-    
+
+
+
     return resultados
