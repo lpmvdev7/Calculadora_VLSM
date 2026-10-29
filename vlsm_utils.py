@@ -1,22 +1,15 @@
 from binary_utils import decimalConversion, binaryConversion
-from data_utils import convertToIpFormat
+# from data_utils import convertToIpFormat
+from ip_utils import total_ipv4_hosts,  convertToIpFormat
 
-def total_ipv4_hosts():
-    total_hosts = []
-    for i in range(1,33):
-        network_size = {
-            "bits": i,
-            "total_hosts":(2**i)-2
-        }
-        total_hosts.append(network_size)
-    return total_hosts
+
 
 # Funcion para calcular el prefijo de red
 def maskPrefix(number_hosts:int)->int:
     ipv4_max_length=32
     bits_utilizables = 0
     for hosts in total_ipv4_hosts():
-        if number_hosts < hosts["total_hosts"]:
+        if number_hosts <= hosts["total_hosts"]:
             bits_utilizables = hosts["bits"]
             break
     mask_prefix=ipv4_max_length - bits_utilizables
@@ -26,7 +19,7 @@ def maskPrefix(number_hosts:int)->int:
 def usableBits(number_hosts:int):
     usable_bit = 0
     for hosts in total_ipv4_hosts():
-        if number_hosts < hosts["total_hosts"]:
+        if number_hosts <= hosts["total_hosts"]:
             usable_bit = hosts["bits"]
             break
     return usable_bit
@@ -150,6 +143,10 @@ def calcVlsm(bits:list[int], hosts:list[int]):
         #Clase C
         ceros_amount = 3
         ip_class_number = [10]
+
+    # Esto es en caso de que el tamaño de la red supere el limite de la clase A
+    # elif total > 16777214 and total <= 4294967294:
+    #     ceros_amount = 4
 
     calc_size = octeto * ceros_amount
     
