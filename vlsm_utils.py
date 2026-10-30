@@ -145,8 +145,8 @@ def calcVlsm(bits:list[int], hosts:list[int]):
         ip_class_number = [10]
 
     # Esto es en caso de que el tamaño de la red supere el limite de la clase A
-    # elif total > 16777214 and total <= 4294967294:
-    #     ceros_amount = 4
+    elif total > 16777214 and total <= 4294967294:
+        ceros_amount = 4
 
     calc_size = octeto * ceros_amount
     
@@ -190,6 +190,18 @@ def calcVlsm(bits:list[int], hosts:list[int]):
             rango_inicial.append(numero_uno)
             rango_inicial.append(numero_dos)
             rango_inicial.append(numero_tres)
+        # Logica para redes gigantescas que superen el Limite de la CLASE A
+        elif primera_division == 4:
+            # Clase D
+            ordenamiento = first_range[::-1]
+            numero_uno = decimalConversion(ordenamiento[:8])
+            numero_dos = decimalConversion(ordenamiento[8:16])
+            numero_tres = decimalConversion(ordenamiento[16:24])
+            numero_cuatro = decimalConversion(ordenamiento[24:32])
+            rango_inicial.append(numero_uno)
+            rango_inicial.append(numero_dos)
+            rango_inicial.append(numero_tres)
+            rango_inicial.append(numero_cuatro)
 
 
         # Colocamos los uno conforme a los bits usados
@@ -299,6 +311,111 @@ def calcVlsm(bits:list[int], hosts:list[int]):
 
                 # next array 
                 next_array = binary_uno + binary_dos + binary_tres
+                current_calc_array = next_array[::-1]
+        elif segunda_division == 4: # Aqui comienza la logica para las REDES mas grandes
+            array_uno = final_range[:8]
+            array_dos = final_range[8:16]
+            array_tres = final_range[16:24]
+            array_cuatro = final_range[24:32]
+            numero_uno = decimalConversion(array_uno)
+            numero_dos = decimalConversion(array_dos)
+            numero_tres = decimalConversion(array_tres)
+            numero_cuatro = decimalConversion(array_cuatro)
+
+            rango_final.append(numero_uno)
+            rango_final.append(numero_dos)
+            rango_final.append(numero_tres)
+            rango_final.append(numero_cuatro)
+
+            if numero_cuatro == 255 and numero_tres == 255 and numero_dos == 255:
+                new_numero_uno = numero_uno + 1
+                new_numero_dos = 0
+                new_numero_tres = 0
+                new_numero_cuatro = 0
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+                binary_cuatro = binaryConversion(new_numero_cuatro)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres + binary_cuatro
+                current_calc_array = next_array[::-1]
+            elif numero_cuatro < 255 and numero_tres < 255 and numero_dos < 255:
+                new_numero_uno = numero_uno
+                new_numero_dos = numero_dos + 1
+                new_numero_tres = numero_tres + 1
+                new_numero_cuatro = numero_cuatro + 1
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+                binary_cuatro = binaryConversion(new_numero_cuatro)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres + binary_cuatro
+                current_calc_array = next_array[::-1]
+            elif numero_cuatro < 255 and numero_tres == 255 and numero_dos == 255:
+                new_numero_uno = numero_uno
+                new_numero_dos = 0
+                new_numero_tres = 0
+                new_numero_cuatro = numero_cuatro + 1
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+                binary_cuatro = binaryConversion(new_numero_cuatro)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres + binary_cuatro
+                current_calc_array = next_array[::-1]
+            elif numero_cuatro < 255 and numero_tres < 255 and numero_dos == 255:
+                new_numero_uno = numero_uno
+                new_numero_dos = 0
+                new_numero_tres = numero_tres + 1
+                new_numero_cuatro = numero_cuatro + 1
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+                binary_cuatro = binaryConversion(new_numero_cuatro)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres + binary_cuatro
+                current_calc_array = next_array[::-1]
+            elif numero_cuatro == 255 and numero_tres < 255 and numero_dos < 255:
+                new_numero_uno = numero_uno
+                new_numero_dos = numero_dos + 1
+                new_numero_tres = numero_tres + 1
+                new_numero_cuatro = 0
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+                binary_cuatro = binaryConversion(new_numero_cuatro)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres + binary_cuatro
+                current_calc_array = next_array[::-1]
+            elif numero_cuatro ==255 and numero_tres == 255 and numero_dos < 255:
+                new_numero_uno = numero_uno
+                new_numero_dos = numero_dos + 1
+                new_numero_tres = 0
+                new_numero_cuatro = 0
+
+                # Conversion binaria
+                binary_uno = binaryConversion(new_numero_uno)
+                binary_dos = binaryConversion(new_numero_dos)
+                binary_tres = binaryConversion(new_numero_tres)
+                binary_cuatro = binaryConversion(new_numero_cuatro)
+
+                # next array 
+                next_array = binary_uno + binary_dos + binary_tres + binary_cuatro
                 current_calc_array = next_array[::-1]
    
         resultados.append(subred)
