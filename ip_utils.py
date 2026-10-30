@@ -14,8 +14,6 @@ def convertToIpFormat(ipv4:list[int]):
 
 
 def maxPossibleHosts(number_hosts:int)->int:
-    ipv4_max_length=32
-    bits_utilizables = 0
     for hosts in total_ipv4_hosts():
         if number_hosts <= hosts["total_hosts"]:
             return hosts["total_hosts"]

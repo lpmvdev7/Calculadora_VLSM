@@ -53,6 +53,7 @@ def createData(subredes:list):
         # print(prefijo, mascara, rango)
         subredesVlsm.append(subredData)
 
-    for sr in subredesVlsm:
-        print(sr)
+    return subredesVlsm
 
+
+# Funcion showData

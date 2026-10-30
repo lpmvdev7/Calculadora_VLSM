@@ -20,10 +20,6 @@ def binaryConversion(decimalNumber):
     index_array=[]
     binary_array=[0,0,0,0,0,0,0,0] #Esta parte siento que esta hardcodeada y se puede hacer mucho mejor
 
-    if decimalNumber > sum(decimales):
-        raise ValueError("El número no puede ser convertido con la configuracion actual")
-
-
     if decimalNumber in decimales:
         # print("Se encuentra no es necesario hacer la conversion")
         for index, numero in enumerate(decimales):
