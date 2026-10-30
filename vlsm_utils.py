@@ -61,6 +61,12 @@ def full_length_mask(prefijo:int):
     if prefijo > 32:
         raise ValueError("El prefijo no puede ser mayor a 32")
 
+    # Solucion temporal para mascaras con prefijos gigantescos
+    if prefijo < 8:
+        primer_octeto = 256 - 2 ** (8 - prefijo)
+        mask = [primer_octeto, 0, 0, 0]
+        return convertToIpFormat(mask)
+
     ipv4_limits = [8,16,24,32]
     resultados_operaciones = []
     for index, numero in enumerate(ipv4_limits):
