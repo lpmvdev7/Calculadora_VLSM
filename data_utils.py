@@ -3,17 +3,19 @@ from vlsm_utils import usableBits, calcVlsm
 from mask_utils import maskPrefix, subnetMask, full_length_mask
 from ip_utils import maxPossibleHosts
 
-def gatherData(n_subredes:int):
-    array_subredes = []
-    if n_subredes == 0:
-        return "Numero de subredes no valido"
-    else:
-        contador = n_subredes
-        while contador > 0:
-            hosts_subred = int(input("Coloca el numero de hosts de la subred: "))
-            array_subredes.append(hosts_subred)
-            contador = contador - 1
-    return array_subredes
+# Esto es una funcion que unicamente sirve para aplicaciones cliente
+# Esto debido a que interactua directamente con un usuario final.
+# def gatherData(n_subredes:int):
+#     array_subredes = []
+#     if n_subredes == 0:
+#         return "Numero de subredes no valido"
+#     else:
+#         contador = n_subredes
+#         while contador > 0:
+#             hosts_subred = int(input("Coloca el numero de hosts de la subred: "))
+#             array_subredes.append(hosts_subred)
+#             contador = contador - 1
+#     return array_subredes
 
 
 def createData(subredes:list): 
