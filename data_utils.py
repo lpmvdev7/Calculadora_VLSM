@@ -1,4 +1,6 @@
-from vlsm_utils import maskPrefix, usableBits, subnetMask, full_length_mask, calcVlsm
+from vlsm_utils import usableBits, calcVlsm
+
+from mask_utils import maskPrefix, subnetMask, full_length_mask
 from ip_utils import maxPossibleHosts
 
 def gatherData(n_subredes:int):
