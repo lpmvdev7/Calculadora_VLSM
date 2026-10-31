@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from data_utils import gatherData, createData
+from data_utils import createData
 
 app = FastAPI()
 calculo = []
