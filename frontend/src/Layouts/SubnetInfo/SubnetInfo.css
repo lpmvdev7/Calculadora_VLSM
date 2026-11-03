@@ -1,0 +1,21 @@
+.si-layout{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 90%;
+    background-color: aliceblue;
+    margin: auto;
+}
+
+@media(min-width:600px){
+    .si-layout{
+        width: 400px;
+        padding: 20px;
+    }
+}
+
+@media(min-width:1024px){
+    .si-layout{
+        width: 40%;
+    }
+}

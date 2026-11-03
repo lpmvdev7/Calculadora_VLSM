@@ -1,0 +1,21 @@
+.container-header{
+    display: flex;
+    width: 104px;
+    height: 45px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--vlsm-border-color);
+    background: #FFF;
+}
+.container-header h1{
+    color: var(--vlsm-blue);
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+}

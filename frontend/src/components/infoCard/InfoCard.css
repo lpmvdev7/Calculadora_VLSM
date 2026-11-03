@@ -1,0 +1,19 @@
+.ic-container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: solid;
+    border-width: 1px;
+    border-color: var(--vlsm-border-color);
+    padding: 10px;
+    width: 100%;
+}
+.ic-container span{
+    color: var(--vlsm-blue);
+    font-weight: bold;
+    font-size: 30px;
+}
+.ic-container span:nth-child(2){
+    color: var(--vlsm-border-color);
+    font-size: 15px;
+}

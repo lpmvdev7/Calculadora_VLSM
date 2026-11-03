@@ -1,0 +1,47 @@
+.shf-container{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 30px;
+    border: 1px solid;
+    border-color: var(--vlsm-border-color);
+    border-radius: 10px;
+}
+.shf-container h1{
+    color: var(--vlsm-blue);
+    font-size: 25px;
+}
+.shf-container section{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+.shf-container section div{
+    display: flex;
+    flex-direction: column;
+}
+.shf-container section div label{
+    color: var(--vlsm-gray);
+    font-weight: bold;
+}
+.shf-container section div input{
+    background-color: var(--vlsm-border-color);
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+}
+.shf-container button{
+    background-color: var(--vlsm-blue);
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    height: 50px;
+    border: none;
+}
+
+@media(min-width:425px){
+    .shf-container{
+        width: 400px;
+    }
+}

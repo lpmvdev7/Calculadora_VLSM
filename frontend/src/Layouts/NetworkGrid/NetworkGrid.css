@@ -1,0 +1,13 @@
+.ng-container{
+    display: flex;
+    flex-direction: column;
+}
+.ng-container h1{
+    margin: 0;
+    text-align: start;
+    font-size: 25px;
+    color: var(--vlsm-blue);
+}
+.ng-container h1 span{
+    color: var(--vlsm-gray);
+}

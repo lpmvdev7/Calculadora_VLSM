@@ -1,0 +1,8 @@
+.pbar-container{
+    width: "100%";
+    height: 50px;
+    background-color: white;
+    border: 1px solid var(--vlsm-border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}

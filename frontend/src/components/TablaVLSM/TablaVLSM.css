@@ -1,0 +1,44 @@
+.table-container{
+    width: 100%;
+    overflow-x: auto;
+}
+table{
+    font-size: 15px;
+    border: solid 1px var(--vlsm-border-color);
+    padding: 10px;
+    /* width: 100%; */
+    /* Modificar este width me ayudara a crear lo responsive de la tabla */
+    width: 1100px;
+    border-spacing: 0px;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+table thead tr{
+    width: fit-content;
+    text-align: left;
+    color: var(--vlsm-blue);
+}
+table thead tr th{
+    width: fit-content
+}
+
+table tbody tr{
+    text-align: start;
+    color: var(--vlsm-gray);
+    font-weight: bolder;
+    height: 50px;
+}
+table tbody .table-container-row:hover{
+    background-color: var(--vlsm-blue);
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+
+@media(min-width: 1024px){
+    table{
+        width: 100%;
+    }
+}

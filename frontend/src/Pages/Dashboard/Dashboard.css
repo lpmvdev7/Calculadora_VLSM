@@ -1,0 +1,13 @@
+.d-page{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    padding: 15px;
+}
+
+@media(min-width:425px) {
+    .d-page .layout-container{
+        width: 400px;    
+    }
+}

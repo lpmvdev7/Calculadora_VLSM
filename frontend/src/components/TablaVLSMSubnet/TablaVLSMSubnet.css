@@ -1,0 +1,23 @@
+.tvlsms-table{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: none;
+}
+.tvlsms-tablerow{
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+/* @media(min-width:425px){
+    .tvlsms-table{
+        width: 50%;
+    }
+}
+
+@media(min-width:1024px){
+    .tvlsms-table{
+        width: 600px;
+    }
+} */

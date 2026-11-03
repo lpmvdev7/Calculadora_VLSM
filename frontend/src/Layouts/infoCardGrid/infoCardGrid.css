@@ -1,0 +1,11 @@
+.icg-container{
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+/* @media(min-width:425px){
+    .icg-container{
+        width: 400px;
+    }
+} */
