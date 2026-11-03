@@ -4,12 +4,8 @@ from data_utils import createData
 app = FastAPI()
 calculo = []
 
-@app.get("/")
-async def root():
-    return {"Message": "Hello World"}
 
-
-@app.post("/vlsm")
+@app.post("/vlsm", tags=["Calculo de VLSM"])
 async def calcularVLSM(n_subredes:int, n_hosts:list[int]):
     global calculo
     array_subredes = []
@@ -36,7 +32,7 @@ async def calcularVLSM(n_subredes:int, n_hosts:list[int]):
 
     return vlsm
 
-@app.get("/vlsm")
+@app.get("/vlsm", tags=["Consulta de VLSM"])
 async def obtenerVLSM():
     return calculo
 
