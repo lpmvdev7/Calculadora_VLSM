@@ -11,3 +11,11 @@
 .ng-container h1 span{
     color: var(--vlsm-gray);
 }
+
+@media(min-width:1024px){
+    .ng-container{
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+    }
+}

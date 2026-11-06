@@ -1,7 +1,26 @@
+import os
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 from data_utils import createData
 
+load_dotenv() 
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+
+
 app = FastAPI()
+# origins = [
+#     f"http://localhost:{FRONTEND_PORT}",
+# ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[FRONTEND_URL],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 calculo = []
 
 

@@ -45,6 +45,10 @@
     background: var(--vlsm-border-color);
     border: none;
     font-size: 15px;
+    padding: 10px;
+    outline: none;
+    color: var(--vlsm-blue);
+    font-weight: bold;
 }
 
 @media(min-width:425px){

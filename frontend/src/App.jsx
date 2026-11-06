@@ -4,15 +4,23 @@ import SubnetAmountPage from './Pages/SubnetAmountPage/SubnetAmountPage.jsx'
 import SubnetHostsPage from './Pages/SubnetHostsPage/SubnetHostsPage.jsx'
 import Dashboard from './Pages/Dashboard/Dashboard.jsx'
 import SubnetInfo from './Layouts/SubnetInfo/SubnetInfo.jsx'
+import { Route, Routes } from 'react-router'
+
+
 
 function App() {
   return (
     <>
     <HeaderApp/>
-    <SubnetAmountPage></SubnetAmountPage>
+    {/* <SubnetAmountPage></SubnetAmountPage>
     <SubnetHostsPage></SubnetHostsPage>
     <Dashboard></Dashboard>
-    <SubnetInfo></SubnetInfo>
+    <SubnetInfo></SubnetInfo> */}
+    <Routes>
+      <Route path='/' element={<SubnetAmountPage/>}/>
+      <Route path='/number-hosts' element={<SubnetHostsPage/>}/>
+      <Route path='/dashboard' element={<Dashboard/>}/>
+    </Routes>
     </>
   )
 }

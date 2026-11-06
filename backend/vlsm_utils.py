@@ -12,9 +12,24 @@ def usableBits(number_hosts:int):
             break
     return usable_bit
 
+# Funcion que convierte a IPS usables
+def convertToUsableIp(position:str, ip:list[int]):
+    if position == "FIRST":
+        ultimo = ip[-1]
+        ultimo_suma = ultimo + 1
+        ip[-1] = ultimo_suma
+        return ip
+    elif position == "LAST":
+        ultimo = ip[-1]
+        ultimo_resta = ultimo - 1
+        ip[-1] = ultimo_resta
+        return ip
+
+
 # Funcion que calcula el VLSM
 def calcVlsm(bits:list[int], hosts:list[int]):
-    total = sum(hosts)
+    # total = sum(hosts)
+    total = sum(2**bit for bit in bits)
     ceros_amount = 0
     octeto = 8
     ip_class_number = []
@@ -22,23 +37,23 @@ def calcVlsm(bits:list[int], hosts:list[int]):
     # Array de objetos que guardara los rangos de red
     resultados = []
 
-    if total <= 254:
+    if total <= 256:
         # Clase C
         ceros_amount = 2
         ip_class_number = [192,168]
 
-    elif total > 254 and total <= 65534:
+    elif total > 256 and total <= 65536:
         # Clase B
         ceros_amount = 2
         ip_class_number = [172,16]
 
-    elif total > 65534 and total <= 16777214:
+    elif total > 65536 and total <= 16777216:
         #Clase C
         ceros_amount = 3
         ip_class_number = [10]
 
     # Esto es en caso de que el tamaño de la red supere el limite de la clase A
-    elif total > 16777214 and total <= 4294967294:
+    elif total > 16777216 and total <= 4294967296:
         ceros_amount = 4
 
     calc_size = octeto * ceros_amount
@@ -166,7 +181,8 @@ def calcVlsm(bits:list[int], hosts:list[int]):
                 current_calc_array = next_array[::-1]
             elif numero_tres < 255 and numero_dos < 255:
                 new_numero_uno = numero_uno 
-                new_numero_dos = numero_dos + 1
+                # new_numero_dos = numero_dos + 1
+                new_numero_dos = numero_dos
                 new_numero_tres = numero_tres + 1
                 # print(new_numero_uno, new_numero_dos, new_numero_tres)
 
@@ -193,8 +209,10 @@ def calcVlsm(bits:list[int], hosts:list[int]):
                 next_array = binary_uno + binary_dos + binary_tres
                 current_calc_array = next_array[::-1]
             elif numero_tres < 255 and numero_dos == 255:
-                new_numero_uno = numero_uno + 1
-                new_numero_dos = 0
+                # new_numero_uno = numero_uno + 1
+                # new_numero_dos = 0
+                new_numero_uno = numero_uno
+                new_numero_dos = numero_dos
                 new_numero_tres = numero_tres + 1
 
                 # Conversion binaria
@@ -318,19 +336,35 @@ def calcVlsm(bits:list[int], hosts:list[int]):
 
     primerIp = ""
     ultimaIp = ""
+    primerIpUsable = ""
+    lastIpUsable = ""
 
     for resultado in resultados:
         rango = {
         "First": primerIp,
-        "Last": ultimaIp
+        "Last": ultimaIp,
+        "UsableFirst": primerIpUsable,
+        "UsableLast": lastIpUsable
         }
         currentFirst = resultado["Inicio"]
         currentLast = resultado["Fin"]
+
+        currentFirstUsable = currentFirst.copy()
+        currentLastUsable = currentLast.copy()
+        convertFirst = convertToUsableIp("FIRST", currentFirstUsable)
+        convertLast = convertToUsableIp("LAST", currentLastUsable)
+
         primerIp = convertToIpFormat(currentFirst)
         ultimaIp = convertToIpFormat(currentLast)
+        primerIpUsable = convertToIpFormat(convertFirst)
+        lastIpUsable = convertToIpFormat(convertLast)
+        
+
 
         rango["First"] = primerIp
         rango["Last"] = ultimaIp
+        rango["First_usable"] = primerIpUsable
+        rango["Last_usable"] = lastIpUsable
         rangos_finales.append(rango)
 
     return rangos_finales

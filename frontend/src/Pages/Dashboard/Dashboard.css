@@ -11,3 +11,11 @@
         width: 400px;    
     }
 }
+
+
+@media(min-width: 1024px){
+    .dashboard-header{
+        display: flex;
+        gap: 20px;
+    }
+}
