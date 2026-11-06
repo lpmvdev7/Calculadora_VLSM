@@ -1,5 +1,7 @@
 import "./TablaVLSM.css"
-export default function TablaVLSM(){
+
+
+export default function TablaVLSM({data}){
 	return(
 		<div className="table-container">
 			<table>
@@ -17,17 +19,30 @@ export default function TablaVLSM(){
 					</tr>
 				</thead>
 				<tbody>
-					<tr className="table-container-row">
-						<td>1</td>
-						<td>126</td>
-						<td>89</td>
-						<td>192.168.0.0</td>
-						<td>192.168.0.127</td>
-						<td>192.168.0.1</td>
-						<td>192.168.0.126</td>
-						<td>/25</td>
-						<td>255.255.255.128</td>
-					</tr>
+					{data.map((subnet)=>(
+						<tr className="table-container-row" key={subnet.id}>
+							<td>{subnet.id}</td>
+							<td>{subnet.hosts_posibles}</td>
+							<td>{subnet.numero_hosts}</td>
+							<td>{subnet.rango.First}</td>
+							<td>{subnet.rango.Last}</td>
+							<td>{subnet.rango.First_usable}</td>
+							<td>{subnet.rango.Last_usable}</td>
+							<td>/{subnet.prefijo_red}</td>
+							<td>{subnet.mascara}</td>
+						</tr>
+					))}
+					{/* <tr className="table-container-row">
+						<td>{id}</td>
+						<td>{total_hosts}</td>
+						<td>{n_hosts}</td>
+						<td>{red_ip}</td>
+						<td>{broadcast_ip}</td>
+						<td>{first}</td>
+						<td>{last}</td>
+						<td>/{prefix}</td>
+						<td>{mask}</td>
+					</tr> */}
 				</tbody>
 			</table>
 		</div>

@@ -15,14 +15,14 @@ export default function ProgressBar({
  
     return (
         <div
-            class="pbar-container"
+            className="pbar-container"
             role="progressbar"
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={percent}
             // style={trackStyle}
         >
-        <div class="pbar-fill" style={fillStyle}/>
+        <div className="pbar-fill" style={fillStyle}/>
         </div>
     );
 }

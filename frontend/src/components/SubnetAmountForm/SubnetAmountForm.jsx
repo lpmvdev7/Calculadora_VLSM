@@ -1,17 +1,43 @@
+import { useState } from 'react'
 import Button from '../Button/Button'
 import './SubnetAmountForm.css'
+import { useNavigate } from 'react-router'
+
+
+// function navigateToNumberHosts(){
+//     return "/number-hosts"
+// }
+
 function SubnetAmountForm(){
+    const [subnetAmount, setSubnetAmount] = useState(null)
+    const navigate = useNavigate()
+    const page = "/number-hosts"
+
+    function navigateToNumberHosts(e){
+        e.preventDefault()
+
+        navigate(page,{
+            state: {
+                subnetAmount: subnetAmount
+            }
+        })
+    }
+
     return(
         <>
-            <div class="saf-container">
+            <form className="saf-container" onSubmit={navigateToNumberHosts}>
                 <h1>Cuantas subredes quieres calcular?</h1>
                 <div>
                     <span>Coloca el numero de subredes</span>
-                    <input type="number" />
+                    <input 
+                        type="number"
+                        value={subnetAmount}
+                        onChange={(e)=> setSubnetAmount(Number(e.target.value))}
+                        required 
+                    />
                 </div>
-                <Button text={"Siguiente"}></Button>
-            </div>
-
+                <Button type='submit' text={"Siguiente"}></Button>
+            </form>
         </>
     )
 }
