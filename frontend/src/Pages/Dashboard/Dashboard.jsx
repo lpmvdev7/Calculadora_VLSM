@@ -40,41 +40,29 @@ export default function Dashboard(){
         getVLSM()
     }, [])
 
-    // return(
-    //     <section className="d-page">
-    //         <header className="dashboard-header">
-    //             <div className="layout-container">
-    //                 <InfoCardGrid data={vlsm}></InfoCardGrid>
-    //             </div>
-    //             <NetworkGrid data={vlsm}></NetworkGrid>
-    //         </header>
-    //         <TablaVLSM data={vlsm} onSelectSubnet={setSelectedSubnet}></TablaVLSM>
-    //         <ExportButtons data={vlsm}></ExportButtons>
-    //     </section>
-    // )
     return (
         <section className="d-page">
 
-            {selectedSubnet === null ? (
-                <>
-                    <header className="dashboard-header">
-                        <div className="layout-container">
-                            <InfoCardGrid data={vlsm} />
-                        </div>
+            <header className="dashboard-header">
+                <div className="layout-container">
+                    <InfoCardGrid data={vlsm} />
+                </div>
 
-                        <NetworkGrid data={vlsm} />
-                    </header>
+                <NetworkGrid data={vlsm} />
+            </header>
 
-                    <TablaVLSM
-                        data={vlsm}
-                        onSelectSubnet={setSelectedSubnet}
-                    />
+            <TablaVLSM
+                data={vlsm}
+                onSelectSubnet={setSelectedSubnet}
+            />
 
-                    <ExportButtons data={vlsm} />
-                </>
-            ) : (
+            <ExportButtons data={vlsm} />
+
+            {selectedSubnet !== null && (
                 <SubnetInfo
-                    subnet={selectedSubnet}/>
+                    subnet={selectedSubnet}
+                    onClose={() => setSelectedSubnet(null)}
+                />
             )}
 
         </section>

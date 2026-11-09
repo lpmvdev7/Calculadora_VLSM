@@ -1,10 +1,34 @@
+.si-backdrop {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.65);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+    padding: 20px;
+    box-sizing: border-box;
+}
+
 .si-layout{
     display: flex;
     flex-direction: column;
     gap: 50px;
     width: 90%;
-    background-color: aliceblue;
+    background-color: white;
     margin: auto;
+}
+
+.si-layout .span-porce{
+    color: var(--vlsm-gray);
+    font-weight: bolder;
 }
 
 @media(min-width:600px){
