@@ -5,6 +5,7 @@ import SubnetHostsPage from './Pages/SubnetHostsPage/SubnetHostsPage.jsx'
 import Dashboard from './Pages/Dashboard/Dashboard.jsx'
 import SubnetInfo from './Layouts/SubnetInfo/SubnetInfo.jsx'
 import { Route, Routes } from 'react-router'
+import NetworkBackground from './components/NetworkBackground/NetworkBackground.jsx'
 
 
 
@@ -12,10 +13,7 @@ function App() {
   return (
     <>
     <HeaderApp/>
-    {/* <SubnetAmountPage></SubnetAmountPage>
-    <SubnetHostsPage></SubnetHostsPage>
-    <Dashboard></Dashboard>
-    <SubnetInfo></SubnetInfo> */}
+    <NetworkBackground></NetworkBackground>
     <Routes>
       <Route path='/' element={<SubnetAmountPage/>}/>
       <Route path='/number-hosts' element={<SubnetHostsPage/>}/>

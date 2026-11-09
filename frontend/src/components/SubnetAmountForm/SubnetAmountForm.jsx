@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Button from '../Button/Button'
 import './SubnetAmountForm.css'
 import { useNavigate } from 'react-router'
+import NetworkBackground from '../NetworkBackground/NetworkBackground'
 
 
 // function navigateToNumberHosts(){
