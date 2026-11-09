@@ -1,7 +1,7 @@
 import "./TablaVLSM.css"
 
 
-export default function TablaVLSM({data}){
+export default function TablaVLSM({data, onSelectSubnet}){
 	return(
 		<div className="table-container">
 			<table>
@@ -20,7 +20,12 @@ export default function TablaVLSM({data}){
 				</thead>
 				<tbody>
 					{data.map((subnet)=>(
-						<tr className="table-container-row" key={subnet.id}>
+						<tr 
+							className="table-container-row" 
+							key={subnet.id}
+							// onClick={()=>console.log(subnet)}
+							onClick={()=>onSelectSubnet(subnet)}
+							>
 							<td>{subnet.id}</td>
 							<td>{subnet.hosts_posibles}</td>
 							<td>{subnet.numero_hosts}</td>
@@ -32,17 +37,6 @@ export default function TablaVLSM({data}){
 							<td>{subnet.mascara}</td>
 						</tr>
 					))}
-					{/* <tr className="table-container-row">
-						<td>{id}</td>
-						<td>{total_hosts}</td>
-						<td>{n_hosts}</td>
-						<td>{red_ip}</td>
-						<td>{broadcast_ip}</td>
-						<td>{first}</td>
-						<td>{last}</td>
-						<td>/{prefix}</td>
-						<td>{mask}</td>
-					</tr> */}
 				</tbody>
 			</table>
 		</div>

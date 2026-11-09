@@ -1,6 +1,6 @@
 import "./TablaVLSMSubnet.css"
 
-export default function TablaVLSMSubnet(){
+export default function TablaVLSMSubnet({data}){
     return(
         <table className="tvlsms-table">
             <thead>
@@ -17,17 +17,20 @@ export default function TablaVLSMSubnet(){
                 </tr>
             </thead>
             <tbody>
-                <tr className="tvlsms-tablerow">
-                    <td>1</td>
-                    <td>126</td>
-                    <td>89</td>
-                    <td>192.168.0.0</td>
-                    <td>192.168.0.127</td>
-                    <td>192.168.0.1</td>
-                    <td>192.168.0.126</td>
-                    <td>/25</td>
-                    <td>255.255.255.255</td>
-                </tr>
+					<tr 
+						className="tvlsms-tablerow" 
+						key={data.id}
+						>
+						<td>{data.id}</td>
+						<td>{data.hosts_posibles}</td>
+						<td>{data.numero_hosts}</td>
+						<td>{data.rango.First}</td>
+						<td>{data.rango.Last}</td>
+						<td>{data.rango.First_usable}</td>
+						<td>{data.rango.Last_usable}</td>
+						<td>/{data.prefijo_red}</td>
+						<td>{data.mascara}</td>
+					</tr>
             </tbody>
         </table>
     )
