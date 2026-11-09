@@ -25,10 +25,6 @@ export default function ExportButtons({data}){
                         )}
                     </PDFDownloadLink>
                 </div>
-
-            {/* <div className="ebb-container">
-                <Button text={"Exportar PDF"}></Button>
-            </div> */}
         </div>
     )
 }
