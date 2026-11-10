@@ -136,30 +136,54 @@ const NetworkInfo = () => (
     </View>
 );
 
-const NetworkCards = ({data}) => (
+const NetworkCards = ({data}) => {
+    let hosts_n = []
+
+    for(let index = 0; index < data.length; index++){
+        const elemento = data[index]["numero_hosts"]
+        hosts_n.push(elemento)
+    }
+    let suma_hosts_n = hosts_n.reduce((acumulador, actual)=> acumulador + actual, 0);
+
+
+    // // Obteniendo el host posible
+    let host_p = []
+    for(let index = 0; index < data.length; index ++){
+        const elemento = data[index]["hosts_posibles"]
+        host_p.push(elemento)
+    }
+    // let mayor = Math.max(...host_p)
+    let mayor = host_p.reduce((acumulador, actual)=> acumulador + actual, 0);
+
+    // Obteniendo porcentaje de uso
+    let PORCENTAJE_USO = Math.floor((Number(suma_hosts_n) / Number(mayor)) * 100)
+    console.log(PORCENTAJE_USO)
+
+    return(
     <View style={styles.networkNumbersContainer}>
         <View style={styles.networkNumbersCard}>
-            <Text style={styles.networkNumberCardN}>545</Text>
+            <Text style={styles.networkNumberCardN}>{suma_hosts_n}</Text>
             <Text style={styles.networkNumberCardT}>
                 HOSTS USADOS
             </Text>
         </View>
 
         <View style={styles.networkNumbersCard}>
-            <Text style={styles.networkNumberCardN}>1022</Text>
+            <Text style={styles.networkNumberCardN}>{mayor}</Text>
             <Text style={styles.networkNumberCardT}>
                 HOSTS DISPONIBLES
             </Text>
         </View>
 
         <View style={styles.networkNumbersCard}>
-            <Text style={styles.networkNumberCardN}>53%</Text>
+            <Text style={styles.networkNumberCardN}>{PORCENTAJE_USO}%</Text>
             <Text style={styles.networkNumberCardT}>
                 UTILIZACIÓN
             </Text>
         </View>
     </View>
-);
+    )
+};
 
 const VlsmPdfTable = ({data}) => {
     return (
@@ -206,7 +230,7 @@ export default function VlsmPdf({data}) {
             <Page size="A4" orientation="portrait" style={styles.document}>
                 <NetworkHeader />
                 <NetworkInfo />
-                <NetworkCards />
+                <NetworkCards data={data}/>
                 <VlsmPdfTable data={data}/>
             </Page>
         </Document>
