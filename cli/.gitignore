@@ -1,0 +1,23 @@
+
+# Entorno virtual de Python
+env/
+venv/
+.venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Metadatos generados al instalar el paquete
+*.egg-info/
+
+# Variables de entorno
+.env
+.env.*
+
+# Archivos del sistema operativo y editores
+.DS_Store
+.vscode/
+.idea/
+

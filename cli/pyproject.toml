@@ -1,0 +1,22 @@
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vlsm-cli"
+version = "0.1.0"
+description = "CLI para la calculadora VLSM"
+requires-python = ">=3.9"
+dependencies = [
+    "click",
+    "requests",
+    "rich"
+]
+
+[project.scripts]
+vlsm = "cli:cli"
+
+[tool.setuptools]
+py-modules = ["cli", "consume"]
+

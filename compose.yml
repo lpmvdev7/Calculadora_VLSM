@@ -19,3 +19,10 @@ services:
     environment:
       - FRONTEND_URL=http://localhost:5173
 
+  cli:
+    build:
+      context: './cli'
+      dockerfile: dockerfile 
+    depends_on:
+      - backend
+    entrypoint: ["sh", "-c", "tail -f /dev/null"]
